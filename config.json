@@ -1,0 +1,14 @@
+{
+  "port": 8001,
+  "token_hmac_secret_key": "46b38493-147e-4e3f-86e0-dc5ec54f5133",
+  "api_key": "1111",
+  "admin_password": "1111",
+  "admin_secret": "46b38493-147e-4e3f-86e0-dc5ec54f5133",
+  "admin": true,
+  "allowed_origins": [
+    "http://vl-demo-api.local",
+    "http://127.0.0.1",
+    "http://localhost:8080"
+  ],
+  "join_leave": true
+}

@@ -21,5 +21,28 @@ services:
             - '../src/Kernel.php'
             - '../src/Tests/'
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+    centrifugo:
+        class: phpcent\Client
+        arguments: ['http://127.0.0.1:8001/api']
+        calls:
+            - setApiKey: ['1111']
+
+    mqtt.consumer:
+        class: PhpMqtt\Client\MqttClient
+        arguments: ['127.0.0.1', '1883', 'v2_receiver']
+
+    mqtt.producer:
+        class: PhpMqtt\Client\MqttClient
+        arguments: [ '127.0.0.1', '1883', 'test-producer' ]
+
+    App\Command\MqttConsumeCommand:
+        arguments:
+            $client: '@mqtt.consumer'
+            $centrifugo: '@centrifugo'
+
+    App\Command\MqttProduceCommand:
+        arguments:
+            $client: '@mqtt.producer'
+
+    App\Controller\ApiController:
+        arguments: ['@mqtt.producer']
